@@ -1,0 +1,372 @@
+<style>
+	.IMG_RUN_HOLDER{
+		margin: 0 auto 0 auto;
+		position: relative;
+		border: 0px solid blue;
+	}
+	.IMG_RUN{
+		margin: 0px;
+	}
+	.IMG_RUN{
+		padding: 0px;
+		border-color: transparent;
+		box-shadow: 2px 2px 4px #ccc;
+		background: white;
+		position: absolute;
+
+		/*-webkit-filter: grayscale(100%); 
+	    filter: grayscale(100%);*/
+	}
+	.IMG_RUN_LABEL{
+		position: absolute;
+		z-index: 1;
+		font-size: 10px;
+		line-height: 12px;
+	}
+	.IMG_RUN_HOLDER .IMG_RUN:first-child{
+			border-color: blue;
+	}
+	.floater{
+		background: white;
+		position: absolute;
+		width: 100%;
+		height: 200px;
+		color: blue;
+		top: 0;
+		padding-top: 20px;
+	}
+</style>
+
+<table class="page_ws_02">
+	<tr valign="top">
+	<td class="MENU_LEFT">
+		<div>
+		<!--////////////////////////BEGIN MENU_RIGHT////////////////////////-->
+
+
+
+		<div class="floater">
+			null
+		</div>
+
+
+
+
+
+		<!--////////////////////////END MENU_RIGHT////////////////////////-->
+		</div>
+	</td>
+	<td class="CONTENT">
+		<div>
+		<!--////////////////////////BEGIN CONTENT////////////////////////-->
+		<div class="IMG_RUN_HOLDER"></div>
+		<span class="label">Order cards by: </span>
+	    <span class="button" id="order_0">Team</span>,
+	    <span class="button" id="order_1"> Rule</span>,
+		<span class="button" id="order_2"> Rows</span>
+		<p/>
+		<div class="MAIN_TEXT">
+			One of the common reactions participants had is “but I’m not an artist”. Some of their frustrations in having to improvise around a set of rules in a restricted amount of time were expressed in the titles of the cards, for example: “WTF” (C5),  “Close but no cigar” (C7), “I tried” (C9), “no time” (F3), and “these rules are confusing” (G6). 
+			<p/>
+			The constaint in time prevented the students from “over-thinking” as they had to tackle and compromise between the multiple rules. Card number 5 was the most challenging in that it had the highest number of adjacent cards (rules 2,4,5,6 & 8) which was said to be left for last because none of the members wanted to take on that challenge.
+			<p/>
+			Due to the time constraint it is expected that some of the rules may be ignored entirely or accidently skipped in order to complete the 9 tiles on time. When grouping the cards by card number this becomes more evident, for example, the 3D sphere in group type number 4.
+
+		</div>
+
+
+
+
+
+
+
+
+		<!--////////////////////////END CONTENT////////////////////////-->
+		</div>
+	</td>
+	<td class="MENU_RIGHT">
+		<div>
+		<!--////////////////////////END MENU_RIGHT////////////////////////-->
+			<ul class="listtitle">	
+				<li><b>The Nine Rivals</b></li>
+			</ul>
+			<ul>
+				<li>Form groups of 1 or more players. Each group gets 9 blank cards.</li>
+				<li>Label each card with a unique number in the top left corner.</li>
+				<li>Each card is assigned a unique rule.</li>
+				<li>Each player is assigned one colored pen.</li>
+			</ul>
+			<ol>	
+				<li>Pick one card, note the assigned rule of your card.</li> 
+				<li>Draw something on your card that follows its own rule AND the rules of it’s adjacent cards. (see Figure 1).</li> 
+				<li>Add a short title to your drawing in the bottom left corner.</li> 
+				<li>Move on to another card until all 9 cards have drawings.</li> 
+			</ol>
+
+
+
+
+
+
+
+
+		<!--////////////////////////END MENU_RIGHT////////////////////////-->
+		</div>
+	</td>
+	</tr>
+</table>
+
+
+	</td>
+	</tr>
+</table>
+
+
+
+
+
+<script>
+var array_groups = ["a","b","c","d","e","f","g","h","i"];
+	var array_rules = [
+		"",
+		"Must be symmetrical",
+		"Pattern",
+		"You may not lift your pen",
+		"Lines may not cross",
+		"Contradict one adjacent rule",
+		"Circle(s)",
+		"Draw without looking at your card",
+		"3D",
+		"Pattern"
+	];
+
+	var json_cards = [];
+
+	var getw = $('.CONTENT').width();//$( window ).height()//740//1015//;
+
+	var width = getw//-(getw/12);//$('.content').width();
+	var width_card = width/17;
+	var squeeze = width/30;
+	var spacing = width/9;
+	var spacing2 = spacing-(spacing/18)
+	var spec_width = (spacing*8)+width_card;
+	var headingspace = getw/20;
+	$('.IMG_RUN_HOLDER').width(width);
+	$('.IMG_RUN_HOLDER').height(width);
+
+	for(var i in array_groups){
+		var group_letter = array_groups[i];
+		var sx = 0;
+		var sy = 0;
+		var sx1 = 0;
+		var sy1 = 0;
+		if(group_letter == "a" || group_letter == "b" || group_letter == "c"){ sy = 0; }
+		if(group_letter == "d" || group_letter == "e" || group_letter == "f"){ sy = 3; }
+		if(group_letter == "g" || group_letter == "h" || group_letter == "i"){ sy = 6; }
+		for (k = 0; k < 9; k++) { 
+			if (k % 3 === 0){
+				if(group_letter == "a" || group_letter == "d" || group_letter == "g"){ sx = 0; }
+				if(group_letter == "b" || group_letter == "e" || group_letter == "h"){ sx = 3; }
+				if(group_letter == "c" || group_letter == "f" || group_letter == "i"){ sx = 6; }	
+			   	sy = sy + 1;		   				   	
+		   	}
+		   	var quad_num = k+1;
+		   	var card_id = group_letter+quad_num;
+		   	sx = sx + 1;
+
+			if(quad_num == 1 || quad_num == 4 || quad_num == 7){ 
+				sx1 = 0;
+			}
+			if(quad_num == 2 || quad_num == 5 || quad_num == 8){ 
+				sx1 = 3; 
+			}
+			if(quad_num == 3 || quad_num == 6 || quad_num == 9){ 
+				sx1 = 6; 
+			}
+			if(quad_num == 1 || quad_num == 2 || quad_num == 3){ sy1 = 0; }
+			if(quad_num == 4 || quad_num == 5 || quad_num == 6){ sy1 = 3; }
+			if(quad_num == 7 || quad_num == 8 || quad_num == 9){ sy1 = 6; }
+
+			if(group_letter == "a"){ sx1 = sx1+0; sy1 = sy1+0; }
+			if(group_letter == "b"){ sx1 = sx1+1; sy1 = sy1+0; }
+			if(group_letter == "c"){ sx1 = sx1+2; sy1 = sy1+0; }
+			if(group_letter == "d"){ sy1 = sy1+1; sy1 = sy1+0; }
+			if(group_letter == "e"){ sx1 = sx1+1; sy1 = sy1+1; }
+			if(group_letter == "f"){ sx1 = sx1+2; sy1 = sy1+1; }
+			if(group_letter == "g"){ sx1 = sx1+0; sy1 = sy1+2; }
+			if(group_letter == "h"){ sx1 = sx1+1; sy1 = sy1+2; }
+			if(group_letter == "i"){ sx1 = sx1+2; sy1 = sy1+2; }
+
+
+			// /console.log(quad_num)
+		   	sx1 = sx1 + 1;
+		   	sy1 = sy1 + 1;
+
+		   	var x0 = ((parseFloat(sx)+1)*spacing)-(spacing*2)+(width-spec_width)/2;
+		   	var y0 = ((parseFloat(sy)+1)*spacing)-(spacing*2)+(width-spec_width)/2;
+		   	//labels
+		   	var lx0 = 0;
+		   	var ly0 = 0;
+		   	var label0 = '';
+		   	if(quad_num == 7){
+		   		lx0 = x0+squeeze
+		   		ly0 = y0+squeeze+10	   		
+		   		label0 = 'Team '+group_letter.toUpperCase();
+		   	}
+
+		   	var x1 = ((parseFloat(sx1)+1)*spacing)-(spacing*2)+(width-spec_width)/2;
+		   	var y1 = ((parseFloat(sy1)+1)*spacing)-(spacing*2)+(width-spec_width)/2;		   	
+		   	//labels
+		   	var lx1;
+		   	var ly1;
+		   	var rule_set = '';
+		   	var rule_per = [];
+		   //	
+		   		lx1 = x1+squeeze
+		   		ly1 = y1+squeeze+10
+		   		var getrules;
+			   	if(quad_num == 1){ getrules = [1,2,4] }
+			   	if(quad_num == 2){ getrules = [1,2,3,5] }
+			   	if(quad_num == 3){ getrules = [2,3,6] }
+			   	if(quad_num == 4){ getrules = [1,4,5,7] }
+			   	if(quad_num == 5){ getrules = [2,4,5,6,8] }
+			   	if(quad_num == 6){ getrules = [3,5,6,9] }
+			   	if(quad_num == 7){ getrules = [4,7,8] }
+			   	if(quad_num == 8){ getrules = [5,7,8,9] }
+			   	if(quad_num == 9){ getrules = [6,8,9] }
+			for(var m in getrules){  		
+				rule_per.push('Rule'+getrules[m]+': '+array_rules[getrules[m]]);
+			}
+			if(group_letter == "g"){
+			   	var therules = [];
+			   	for(var m in getrules){
+			   		therules.push('Rule'+getrules[m]+': '+array_rules[getrules[m]]);
+			   		//console.log(rule_set);
+			   	}
+			   	rule_set = therules.join('</br>')
+		   	}
+
+		   	//console.log(rule_per);
+
+
+		   	//var x1 = ((parseFloat(i)+1)*spacing)-(spacing/2)-(width_card/2);
+		   	//var y1 = ((parseFloat(k)+1)*spacing)-(spacing/2)-(width_card/2);
+			//var x2 = ((parseFloat(k)+1)*spacing2)-(spacing2/2)-(width_card/2);
+		   	//var y2 = ((parseFloat(i)+1)*spacing2)-(spacing2/2)-(width_card/2);	   	
+		   	var x2 = ((parseFloat(k)+1)*spacing2)-(spacing2/2)+6;
+		   	var y2 = ((parseFloat(i)+1)*spacing2)-(spacing2/2)+6;
+
+		   	
+		   	if(quad_num === 1 || quad_num === 2 || quad_num === 3){y0 = y0 + squeeze; }
+		   	if(quad_num === 7 || quad_num === 8 || quad_num === 9){y0 = y0 - squeeze; }
+		   	if(quad_num === 1 || quad_num === 4 || quad_num === 7){x0 = x0 + squeeze; }
+		   	if(quad_num === 3 || quad_num === 6 || quad_num === 9){x0 = x0 - squeeze; }
+
+		   	if(group_letter == "a" || group_letter == "b" || group_letter == "c"){ y1 = y1 + squeeze; }
+		   	if(group_letter == "g" || group_letter == "h" || group_letter == "i"){ y1 = y1 - squeeze; }
+		   	if(group_letter == "a" || group_letter == "d" || group_letter == "g"){ x1 = x1 + squeeze; }
+		   	if(group_letter == "c" || group_letter == "f" || group_letter == "i"){ x1 = x1 - squeeze; }
+
+
+
+		   	//console.log(group_letter+k+' - x'+sx+',y'+sy);
+		   	var card_obj = {
+		   		"id":card_id,
+		   		"l0":[x0,y0],
+		   		"l0_l":[lx0,ly0,label0],
+		   		"l1":[x1,y1],
+		   		"l1_l":[lx1,ly1,rule_set],
+		   		"l2":[x2,y2],
+		   		"rules":getrules
+		   	};
+		   	json_cards.push(card_obj);
+		}
+	}
+
+	//console.log(json_cards);
+
+	for(var i in json_cards){
+		var get_rules = [];
+		for(var m in json_cards[i].rules){
+			get_rules.push('Rule '+json_cards[i].rules[m]+': '+array_rules[json_cards[i].rules[m]])
+		}
+		get_rules = 'Team '+(json_cards[i].id.split('')[0].toUpperCase())+', Quadrant '+(json_cards[i].id.split('')[1].toUpperCase())+'</br>'+get_rules.join('<br/>');
+		if(i == 0){
+			$('.floater').html('<b>'+json_cards[i].id.toUpperCase()+'</b> - '+get_rules);
+		}
+		//console.log(json_cards[i].rules);
+
+		var get_class0 = json_cards[i].l0[0]+'-'+json_cards[i].l0[1];
+		var get_class1 = json_cards[i].l1[0]+'-'+json_cards[i].l1[1];
+		var get_class2 = json_cards[i].l2[0]+'-'+json_cards[i].l2[1];
+		$('.IMG_RUN_HOLDER').append('<img id="'+json_cards[i].id+'" rules="'+get_rules+'" class="IMG_RUN" loc="'+get_class0+' '+get_class1+' '+get_class2+'" style="left:'+json_cards[i].l0[0]+'px;top:'+(json_cards[i].l0[1]-headingspace)+'px;width:'+width_card+'px" src="cards/'+json_cards[i].id+'.jpg"/>');
+		$('.IMG_RUN_HOLDER').append('<div class="IMG_RUN_LABEL label_0" style="left:'+json_cards[i].l0_l[0]+'px;top:'+(json_cards[i].l0_l[1]-headingspace)+'px;">'+json_cards[i].l0_l[2]+'<div>');
+		$('.IMG_RUN_HOLDER').append('<div class="IMG_RUN_LABEL label_1" style="display:none;left:'+json_cards[i].l1_l[0]+'px;top:'+(json_cards[i].l1_l[1]-headingspace)+'px;">'+json_cards[i].l1_l[2]+'<div>');
+	}
+
+
+	$('.button').click(function(){
+		var get_order = $(this).attr('id').split('_')[1];
+		//console.log(get_order);
+		order_change(get_order)
+	});
+
+
+
+order_change(0)
+	function order_change(order){
+	    $('.IMG_RUN').each(function( index ) {
+	    	var get_0 = $(this).attr('loc').split(' ')[0].split('-');
+	    	var get_1 = $(this).attr('loc').split(' ')[1].split('-');
+	    	var get_2 = $(this).attr('loc').split(' ')[2].split('-');
+	    	var get = [get_0,get_1,get_2]
+		  	//console.log($(this).attr('loc'));
+			
+			$(this).animate({
+				left: get[order][0],
+				top: (get[order][1]-headingspace)
+			}, 500, function() {
+				// Animation complete.
+				console.log('done')
+			});
+
+		})
+
+			$('.IMG_RUN_LABEL').fadeOut();
+			$('.label_'+order).fadeIn();
+	}
+
+//LOOP
+function countdown() {
+    // your code goes here
+    var count = 3;
+    var timerId = setInterval(function() {
+        count--;
+        console.log(count);
+        order_change(count)
+        if(count == 0) {
+            // your code goes here
+            //console.log(count);
+            count = 3;
+        }
+    }, 4000);
+}
+
+$('.page_ws_02').on("mouseover", ".IMG_RUN", function() {
+	var get_height = $(this).height();
+	var get_id = $( this ).attr( "id" );
+	var get_rules = $( this ).attr( "rules" );
+	var get_pos_y = $(this).position().top;
+	//console.log(get_id+'+'+get_rules);
+	$('.IMG_RUN').css({'border-color':'transparent'})
+	$(this).css({'border-color':'blue'})
+	$('.floater').hide();
+	$('.floater').css({'top':get_pos_y+'px'}).show();
+	var floater_text = '<b>'+get_id.toUpperCase()+'</b> - '
+		floater_text += get_rules
+	$('.floater').html(floater_text);
+	//console.log(get_rules)
+});
+
+
+</script>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Drawing Together</title>
+<link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700|VT323|Cutive+Mono|Share+Tech+Mono|Fira+Mono:400,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Roboto+Mono:400,300,300italic,400italic,500,500italic,700italic,700' rel='stylesheet' type='text/css'>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+<link rel="stylesheet" href="global.css" type="text/css">
+
+
+
+<style>
+	.video-container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%; 
+  overflow: hidden;
+}
+
+.video-container video {
+  /* Make video to at least 100% wide and tall */
+  min-width: 100%; 
+  min-height: 100%; 
+  
+  /* Setting width & height to auto prevents the browser from stretching or squishing the video */
+  width: auto;
+  height: auto;
+  
+  /* Center the video */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+
+.overlay {
+  background: rgba(255,255,255,0);
+  min-height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+code { font-family: monospace; }
+</style>
+
+
+
+</head>
+
+<body>
+  
+
+
+<div class="video-container">
+  
+  <video autoplay loop="true" width="1280" height="720" muted>
+    <source type="video/mp4" src="videos/splash_00.mp4">
+   <!-- <source type="video/webm" src="videos/splash_00.webm">
+    <source type="video/ogg" src="videos/splash_00.ogv">-->
+  </video>
+
+  
+</div>
+
+  <div class="IMAGE_POP">
+    <div class="IMAGE_POP_content">content</div>
+    <div class="scroll">scroll &#8593; &#8595;  &#8592;  &#8594;</div>
+    <div class="close"><a>close</a></div>
+  </div>
+
+  <div class="overlay">
+    
+
+		<div class="HEADER">
+		  <div class="button page_button title" getpage="page_title">Drawing Together</div>
+		  <div class="button page_button" getpage="page_about">About</div>
+		  <div class="button page_button" getpage="page_workshops">Workshops</div>
+		</div>
+
+		<div class="PAGES"></div>
+    
+    
+    
+  </div>
+
+
+
+
+
+
+
+
+
+<script src="global.js"></script>
+
+</body>
+
+</html>
+
